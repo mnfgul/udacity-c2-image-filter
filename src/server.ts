@@ -18,15 +18,21 @@ import { spawn } from 'child_process';
 
   // Root URI call
   app.get( "/", async ( req, res ) => {
-    const pythonProcess = spawn('python3', ["src/image_filter.py"]);
-    if(pythonProcess !== undefined) {
-      pythonProcess.stdout.on('data', (data) => {
-        // Do something with the data returned from python script
-        console.log(data.toString())
-      });
-    }
+      
+    try {
+        const pythonProcess = spawn('python3', ["src/image_filter.py"]);
+        if(pythonProcess !== undefined) {
+        pythonProcess.stdout.on('data', (data) => {
+            // Do something with the data returned from python script
+            console.log(data.toString())
+        });
+        }
+      }catch(error){
+        console.log(error);
+      }
 
     res.send( "pythonic" );
+
   } );
   
 
